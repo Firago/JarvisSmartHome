@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dip">
+
+    <!-- Signal strength -->
+    <ImageView
+        android:id="@+id/item_network_info_signal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="5sp" />
+
+    <!-- SSID -->
+    <TextView
+        android:id="@+id/item_network_info_ssid"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/item_network_info_signal"
+        android:layout_toStartOf="@+id/item_network_info_right_arrow"
+        android:layout_toEndOf="@+id/item_network_info_signal"
+        android:textColor="@android:color/primary_text_dark"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:typeface="sans" />
+
+    <!-- Encryption type -->
+    <TextView
+        android:id="@+id/item_network_info_encryption"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_network_info_ssid"
+        android:layout_marginTop="1dip"
+        android:layout_toStartOf="@+id/item_network_info_right_arrow"
+        android:layout_toEndOf="@+id/item_network_info_signal"
+        android:textColor="@android:color/secondary_text_dark"
+        android:textSize="12sp" />
+
+    <!--  Arrow -->
+    <ImageView
+        android:id="@+id/item_network_info_right_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="5sp"
+        android:src="@drawable/ic_keyboard_arrow_right_white_36dp" />
+
+</RelativeLayout>

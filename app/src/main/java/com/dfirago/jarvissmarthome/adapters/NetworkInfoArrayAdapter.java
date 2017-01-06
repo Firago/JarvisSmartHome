@@ -72,7 +72,7 @@ public class NetworkInfoArrayAdapter extends ArrayAdapter<NetworkInfo> {
             // If there's no view to re-use, inflate a brand new view for row
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.item_network_info, parent, false);
+            convertView = inflater.inflate(R.layout.item_networks_list, parent, false);
             viewHolder.signal = (ImageView) convertView.findViewById(R.id.item_network_info_signal);
             viewHolder.ssid = (TextView) convertView.findViewById(R.id.item_network_info_ssid);
             viewHolder.encryption = (TextView) convertView.findViewById(R.id.item_network_info_encryption);

@@ -1,10 +1,12 @@
 package com.dfirago.jarvissmarthome.web.model;
 
+import java.io.Serializable;
+
 /**
  * Created by dmfi on 04/01/2017.
  */
 
-public class NetworkInfo {
+public class NetworkInfo implements Serializable {
 
     private String ssid;
     private String encryption;

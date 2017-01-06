@@ -1,11 +1,10 @@
-package com.dfirago.jarvissmarthome.fragments;
+package com.dfirago.jarvissmarthome.activities;
 
-import android.app.Fragment;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -16,7 +15,6 @@ import com.dfirago.jarvissmarthome.R;
 import com.dfirago.jarvissmarthome.adapters.NetworkInfoArrayAdapter;
 import com.dfirago.jarvissmarthome.comparators.NetworkInfoRssiComparator;
 import com.dfirago.jarvissmarthome.comparators.NetworkInfoSsidComparator;
-import com.dfirago.jarvissmarthome.listeners.OnNetworkSelectedListener;
 import com.dfirago.jarvissmarthome.web.model.NetworkInfo;
 import com.dfirago.jarvissmarthome.web.model.NetworksResponse;
 import com.dfirago.jarvissmarthome.web.services.ConfigurationService;
@@ -32,17 +30,19 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Created by dmfi on 30/10/2016.
- */
-public class NetworkSelectFragment extends Fragment {
+import static android.widget.AdapterView.OnItemClickListener;
 
-    public static final String TAG = "NetworkSelectFragment";
+/**
+ * Created by dmfi on 05/01/2017.
+ */
+
+public class NetworksListActivity extends BaseActivity {
+
+    private final static String TAG = "NetworkDetailsActivity";
 
     private ConfigurationService configurationService =
             RestServiceFactory.createService(ConfigurationService.class);
 
-    private OnNetworkSelectedListener networkSelectedListener;
     private NetworkInfoArrayAdapter networkInfoArrayAdapter;
 
     private LinearLayout spinnerLayout;
@@ -50,40 +50,27 @@ public class NetworkSelectFragment extends Fragment {
     private Button refreshButton;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView");
-        View view = inflater.inflate(R.layout.fragment_network_select, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate");
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_networks_list);
+        spinnerLayout = (LinearLayout) findViewById(R.id.network_select_spinner_layout);
+        networkInfoArrayAdapter = new NetworkInfoArrayAdapter(getApplicationContext(),
+                R.layout.item_networks_list);
 
-        Fragment mainFragment = getFragmentManager().findFragmentByTag(MainFragment.TAG);
-        networkSelectedListener = (OnNetworkSelectedListener) mainFragment;
-
-        spinnerLayout = (LinearLayout) view.findViewById(R.id.network_select_spinner_layout);
-        networkListView = (ListView) view.findViewById(R.id.network_list_view);
-        networkInfoArrayAdapter = new NetworkInfoArrayAdapter(view.getContext(), R.layout.item_network_info);
-
-        loadAvailableNetworks();
-
+        networkListView = (ListView) findViewById(R.id.network_list_view);
         networkListView.setAdapter(networkInfoArrayAdapter);
-        networkListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        networkListView.setOnItemClickListener(new NetworkListOnItemClickListener());
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                NetworkInfo itemValue = (NetworkInfo) networkListView.getItemAtPosition(position);
-                networkSelectedListener.onNetworkSelected(itemValue);
-            }
-        });
-
-        refreshButton = (Button) view.findViewById(R.id.refresh_button);
+        refreshButton = (Button) findViewById(R.id.refresh_button);
         refreshButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 loadAvailableNetworks();
             }
         });
 
-        return view;
+        loadAvailableNetworks();
     }
 
     private void loadAvailableNetworks() {
@@ -115,10 +102,22 @@ public class NetworkSelectFragment extends Fragment {
         public void onFailure(Call<NetworksResponse> call, Throwable t) {
             Log.e(TAG, "Failed to retrieve available networks", t);
             networkInfoArrayAdapter.clear();
-            Toast.makeText(getActivity().getApplicationContext(),
+            Toast.makeText(getApplicationContext(),
                     "Failed to retrieve networks list from the device", Toast.LENGTH_LONG).show();
             // hide spinner after failure
             spinnerLayout.setVisibility(View.GONE);
+        }
+    }
+
+    private class NetworkListOnItemClickListener implements OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            NetworkInfo itemValue = (NetworkInfo) networkListView.getItemAtPosition(position);
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("networkInfo", itemValue);
+            setResult(Activity.RESULT_OK, returnIntent);
+            finish();
         }
     }
 }

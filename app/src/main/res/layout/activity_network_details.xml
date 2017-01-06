@@ -7,7 +7,7 @@
     android:background="@color/colorPrimaryDark">
 
     <LinearLayout
-        android:id="@+id/main_spinner_layout"
+        android:id="@+id/network_details_spinner_layout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:gravity="center"
@@ -15,9 +15,9 @@
         android:visibility="gone">
 
         <ProgressBar
-            android:id="@+id/main_spinner"
+            android:id="@+id/network_details_spinner"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
@@ -79,8 +79,7 @@
                 android:inputType="textPersonName"
                 android:labelFor="@id/ssid_label"
                 android:onClick="chooseNetwork"
-                android:textColor="@android:color/primary_text_dark"
-                android:textSize="30sp" />
+                android:textColor="@android:color/primary_text_dark"/>
 
             <TextView
                 android:id="@+id/password_label"
@@ -98,8 +97,7 @@
                 android:ems="10"
                 android:inputType="textPassword"
                 android:labelFor="@id/password_label"
-                android:textColor="@android:color/primary_text_dark"
-                android:textSize="30sp" />
+                android:textColor="@android:color/primary_text_dark"/>
 
         </LinearLayout>
 
@@ -109,11 +107,12 @@
         android:id="@+id/confirm_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
         android:background="@color/colorPrimary"
+        android:onClick="updateConfiguration"
         android:text="@string/confirm_button_text"
         android:textColor="@android:color/primary_text_dark"
-        android:textSize="18sp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"/>
+        android:textSize="18sp" />
 
 </RelativeLayout>

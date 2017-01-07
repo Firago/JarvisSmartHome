@@ -56,7 +56,7 @@ public class NetworksListActivity extends BaseActivity {
         setContentView(R.layout.activity_networks_list);
         spinnerLayout = (LinearLayout) findViewById(R.id.network_select_spinner_layout);
         networkInfoArrayAdapter = new NetworkInfoArrayAdapter(getApplicationContext(),
-                R.layout.item_networks_list);
+                R.layout.networks_list_item);
 
         networkListView = (ListView) findViewById(R.id.network_list_view);
         networkListView.setAdapter(networkInfoArrayAdapter);

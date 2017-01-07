@@ -56,7 +56,7 @@ public class NetworkDetailsActivity extends BaseActivity {
         }
     }
 
-    public void updateConfiguration() {
+    public void updateConfiguration(View view) {
         spinnerLayout.setVisibility(View.VISIBLE);
         NetworkSelectRequest request = new NetworkSelectRequest();
         request.setSsid(ssidEditText.getText().toString());

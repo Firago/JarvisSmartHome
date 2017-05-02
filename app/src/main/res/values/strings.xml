@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Jarvis Smart Home</string>
+    <string name="network_configuration_title">Network configuration</string>
     <string name="password_hint">Password</string>
     <string name="confirm_button_text">Confirm</string>
+    <string name="refresh_button_label">Refresh</string>
+    <string name="ssid_label">SSID</string>
+    <string name="password_label">Password</string>
+    <string name="switch_control_title">Switch control</string>
+    <string name="enter_password">Enter password</string>
 </resources>

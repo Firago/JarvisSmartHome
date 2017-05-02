@@ -1,5 +1,10 @@
 package com.dfirago.jarvissmarthome.web.services;
 
+import com.dfirago.jarvissmarthome.utils.Constants;
+
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -9,11 +14,15 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class RestServiceFactory {
 
-    private static final String API_BASE_URL = "http://192.168.4.1";
+    private static final OkHttpClient client = new OkHttpClient.Builder()
+            .readTimeout(60, TimeUnit.SECONDS)
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .build();
 
     private static final Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(API_BASE_URL)
+            .baseUrl(Constants.HUB_BASE_URL)
             .addConverterFactory(JacksonConverterFactory.create())
+            .client(client)
             .build();
 
     public static <S> S createService(Class<S> serviceClass) {
